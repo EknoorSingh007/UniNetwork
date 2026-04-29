@@ -274,7 +274,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\eknoo\\Downloads\\grad-loop-deploy\\grad-loop-deploy\\prisma\\generated",
+      "value": "C:\\Users\\eknoo\\Downloads\\grad-loop-deploy\\UniNetwork\\prisma\\generated",
       "fromEnvVar": null
     },
     "config": {
@@ -290,7 +290,7 @@ const config = {
     "previewFeatures": [
       "driverAdapters"
     ],
-    "sourceFilePath": "C:\\Users\\eknoo\\Downloads\\grad-loop-deploy\\grad-loop-deploy\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\eknoo\\Downloads\\grad-loop-deploy\\UniNetwork\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -304,6 +304,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
