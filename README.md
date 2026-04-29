@@ -2,6 +2,10 @@
 
 UniNetwork is a full-stack alumni networking platform built to help university students and graduates stay connected, share opportunities, and grow together. Think of it as a focused LinkedIn — but specifically designed for your college community.
 
+## Project is Live
+
+[UniNetwork Live](https://uninetwork-mu.vercel.app/)
+
 ## Why We Built This
 
 Most alumni networks rely on scattered WhatsApp groups or outdated email lists. We wanted something better — a dedicated space where students and alumni can discover each other, chat in real time, and share job/internship opportunities without the noise of general-purpose social media.
@@ -42,7 +46,7 @@ Most alumni networks rely on scattered WhatsApp groups or outdated email lists. 
 
 1. Clone the repo:
    ```bash
-   git clone https://github.com/your-username/UniNetwork.git
+   git clone https://github.com/EknoorSingh007/UniNetwork.git
    cd UniNetwork
    ```
 
