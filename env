@@ -1,0 +1,18 @@
+# clerk keys 
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_cGVhY2VmdWwtc2xvdGgtNzQuY2xlcmsuYWNjb3VudHMuZGV2JA
+CLERK_SECRET_KEY=sk_test_MRL29V7n2YMhAOUo7BehkrvHEMrdIWsxRNahmsZB9V
+
+# supabase keys 
+
+# Connect to Supabase via connection pooling
+DATABASE_URL="postgresql://postgres.jcalmzsobdjdiqeeyypz:jay...Mahavir1@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+
+# Direct connection to the database. Used for migrations
+DIRECT_URL="postgresql://postgres.jcalmzsobdjdiqeeyypz:jay...Mahavir1@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres"
+
+# RESUME API KEY
+MISTRAL_API_KEY=aSzGc3XcOhIXNtC4dZqeyVfEwD40anDn
+
+#supabase storage 
+NEXT_PUBLIC_SUPABASE_URL=https://jcalmzsobdjdiqeeyypz.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjYWxtenNvYmRqZGlxZWV5eXB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc0MDQ1NjcsImV4cCI6MjA5Mjk4MDU2N30.EMWieIRk6tVhAt_IwUcrTCRtjZAHZp1s2iZ_F7iHte4

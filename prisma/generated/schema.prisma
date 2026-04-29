@@ -1,0 +1,201 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../prisma/generated"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model University {
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
+  domain        String        @unique // e.g., 'stanford.edu'
+  users         User[]
+  communities   Community[]
+  posts         Post[]
+  events        Event[]
+  opportunities Opportunity[]
+}
+
+model Community {
+  id           Int        @id @default(autoincrement())
+  name         String
+  description  String?
+  isMain       Boolean    @default(false)
+  universityId Int
+  university   University @relation(fields: [universityId], references: [id])
+  posts        Post[]
+}
+
+model User {
+  id             Int      @id @default(autoincrement())
+  clerkId        String?  @unique
+  email          String   @unique
+  firstName      String?
+  lastName       String?
+  role           Role
+  graduationYear Int?
+  connections    Int[]    @default([])
+  domain         String? // professional domain (web, app, etc.)
+  skills         String[]
+  company        String?
+  roleTitle      String?
+  openToConnect  Boolean  @default(true)
+  profile_photo  String?
+  bio            String?
+
+  universityId Int?
+  university   University? @relation(fields: [universityId], references: [id])
+  isModerator  Boolean     @default(false)
+  openToMentor Boolean     @default(false)
+
+  posts         Post[]
+  opportunities Opportunity[]
+  referralsMade ReferralRequest[]   @relation("Referrer")
+  referralsReq  ReferralRequest[]   @relation("Requestor")
+  sentReqs      ConnectionRequest[] @relation("SentConnectionReqs")
+  receivedReqs  ConnectionRequest[] @relation("ReceivedConnectionReqs")
+  conversations Conversation[]
+  messages      Message[]
+  likes         Like[]
+  comments      Comment[]
+  commentLikes  CommentLike[]
+}
+
+enum Role {
+  STUDENT
+  ALUMNI
+}
+
+model Skill {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  id           Int        @id @default(autoincrement())
+  title        String?
+  content      String?
+  published    Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+  authorId     Int
+  author       User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  communityId  Int?
+  community    Community? @relation(fields: [communityId], references: [id], onDelete: SetNull)
+  universityId Int
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  mediaUrls    String[]
+  likes        Like[]
+  comments     Comment[]
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([postId, userId])
+}
+
+model Comment {
+  id        Int           @id @default(autoincrement())
+  content   String
+  postId    Int
+  post      Post          @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime      @default(now())
+  likes     CommentLike[]
+}
+
+model CommentLike {
+  id        Int      @id @default(autoincrement())
+  commentId Int
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([commentId, userId])
+}
+
+model Opportunity {
+  id              Int               @id @default(autoincrement())
+  title           String
+  type            String // "Internship", "Full-time", etc.
+  description     String
+  skills          String[]
+  salary          String?
+  deadline        DateTime?
+  authorId        Int
+  author          User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  universityId    Int
+  university      University        @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  requests        ReferralRequest[]
+  location        String?
+  outcomes        String?
+  applicationLink String?
+  createdAt       DateTime          @default(now())
+}
+
+model ReferralRequest {
+  id            Int         @id @default(autoincrement())
+  status        String      @default("Pending") // "Pending", "Reviewed", "Referred", "Not Now"
+  requestorId   Int
+  requestor     User        @relation("Requestor", fields: [requestorId], references: [id], onDelete: Cascade)
+  opportunityId Int
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  referrerId    Int
+  referrer      User        @relation("Referrer", fields: [referrerId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+}
+
+model ConnectionRequest {
+  id         Int      @id @default(autoincrement())
+  status     String   @default("PENDING") // PENDING, ACCEPTED, REJECTED
+  message    String?
+  createdAt  DateTime @default(now())
+  senderId   Int
+  sender     User     @relation("SentConnectionReqs", fields: [senderId], references: [id], onDelete: Cascade)
+  receiverId Int
+  receiver   User     @relation("ReceivedConnectionReqs", fields: [receiverId], references: [id], onDelete: Cascade)
+}
+
+model Conversation {
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  lastMessageAt DateTime  @default(now())
+  participants  User[]
+  messages      Message[]
+}
+
+model Message {
+  id             Int          @id @default(autoincrement())
+  content        String
+  read           Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+  senderId       Int
+  sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  conversationId Int
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+}
+
+model Event {
+  id           Int        @id @default(autoincrement())
+  title        String
+  description  String
+  date         DateTime
+  organizerId  Int
+  universityId Int
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now())
+}
