@@ -218,6 +218,8 @@ exports.Prisma.ReferralRequestScalarFieldEnum = {
   requestorId: 'requestorId',
   opportunityId: 'opportunityId',
   referrerId: 'referrerId',
+  resumeUrl: 'resumeUrl',
+  resumeText: 'resumeText',
   createdAt: 'createdAt'
 };
 

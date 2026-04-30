@@ -5,48 +5,38 @@ import { Badge } from "@/components/ui/badge";
 import { 
   Briefcase, MapPin, DollarSign, Calendar, Sparkles, 
   Target, Zap, Loader2, CheckCircle2, ChevronDown,
-  ChevronUp, Globe, Building2, User
+  ChevronUp, Globe, Building2, User, Users
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useUser } from "@clerk/nextjs";
+import ApplicantsModal from "./ApplicantsModal";
+import ApplicationModal from "./ApplicationModal";
 
 interface OpportunityCardProps {
   opportunity: any;
 }
 
 export default function OpportunityCard({ opportunity }: OpportunityCardProps) {
+  const { user } = useUser();
   const [isApplying, setIsApplying] = useState(false);
   const [applied, setApplied] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isApplicantsModalOpen, setIsApplicantsModalOpen] = useState(false);
+  const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
+  
+  const isAuthor = user?.id === opportunity.author?.clerkId;
+  const requestsCount = opportunity._count?.requests || 0;
 
-  const handleQuickApply = async () => {
+  const handleApplyClick = () => {
     if (opportunity.applicationLink) {
       window.open(opportunity.applicationLink, "_blank", "noopener,noreferrer");
       setApplied(true);
       return;
     }
-
-    setIsApplying(true);
-    try {
-      const res = await fetch("/api/opportunities/apply", {
-        method: "POST",
-        body: JSON.stringify({ opportunityId: opportunity.id }),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (res.ok) {
-        setApplied(true);
-      } else {
-        const data = await res.json();
-        alert(data.error || "Failed to apply");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong");
-    } finally {
-      setIsApplying(false);
-    }
+    setIsApplicationModalOpen(true);
   };
 
   const authorInitials = `${opportunity.author?.firstName?.[0] || ""}${opportunity.author?.lastName?.[0] || ""}`;
@@ -93,38 +83,55 @@ export default function OpportunityCard({ opportunity }: OpportunityCardProps) {
           </div>
 
           <div className="flex gap-4 self-end md:self-center">
-            {opportunity.applicationLink && (
+            {opportunity.applicationLink && !isAuthor && (
                <Button variant="outline" onClick={() => window.open(opportunity.applicationLink, "_blank")} className="rounded-2xl border-border hover:bg-muted text-xs font-bold gap-2 px-5 h-12 shadow-sm transition-all active:scale-95">
                  <Globe className="size-4" />
                  Company Site
                </Button>
             )}
-            <Button
-              onClick={handleQuickApply}
-              disabled={isApplying || applied}
-              className={cn(
-                "rounded-2xl px-10 h-12 font-black text-xs uppercase tracking-widest transition-all duration-500 shadow-xl active:scale-95 group/btn overflow-hidden relative",
-                applied 
-                  ? "bg-emerald-500 text-white shadow-emerald-500/20" 
-                  : "bg-primary hover:bg-primary/95 text-white shadow-primary/20 hover:shadow-primary/40"
-              )}
-            >
-              <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
-              
-              {isApplying ? (
-                <Loader2 className="h-4 w-4 animate-spin font-bold" />
-              ) : applied ? (
+            
+            {isAuthor ? (
+              <Button
+                onClick={() => setIsApplicantsModalOpen(true)}
+                className="rounded-2xl px-8 h-12 font-black text-xs uppercase tracking-widest transition-all duration-500 shadow-xl active:scale-95 bg-primary text-white hover:bg-primary/95 shadow-primary/20 hover:shadow-primary/40 group/btn relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4" />
-                  Applied
+                  <Users className="h-4 w-4" />
+                  View Applicants
+                  {requestsCount > 0 && (
+                    <span className="ml-1 bg-white/20 px-2 py-0.5 rounded-full text-[10px]">{requestsCount}</span>
+                  )}
                 </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <Zap className="h-4 w-4 fill-current" />
-                  {opportunity.applicationLink ? "Quick Apply" : "Apply Now"}
-                </div>
-              )}
-            </Button>
+              </Button>
+            ) : (
+              <Button
+                onClick={handleApplyClick}
+                disabled={isApplying || applied}
+                className={cn(
+                  "rounded-2xl px-10 h-12 font-black text-xs uppercase tracking-widest transition-all duration-500 shadow-xl active:scale-95 group/btn overflow-hidden relative",
+                  applied 
+                    ? "bg-emerald-500 text-white shadow-emerald-500/20" 
+                    : "bg-primary hover:bg-primary/95 text-white shadow-primary/20 hover:shadow-primary/40"
+                )}
+              >
+                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
+                
+                {isApplying ? (
+                  <Loader2 className="h-4 w-4 animate-spin font-bold" />
+                ) : applied ? (
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4" />
+                    Applied
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <Zap className="h-4 w-4 fill-current" />
+                    {opportunity.applicationLink ? "Quick Apply" : "Apply Now"}
+                  </div>
+                )}
+              </Button>
+            )}
           </div>
         </div>
 
@@ -231,6 +238,19 @@ export default function OpportunityCard({ opportunity }: OpportunityCardProps) {
           </div>
         </div>
       </div>
+
+      <ApplicantsModal 
+        isOpen={isApplicantsModalOpen} 
+        onClose={() => setIsApplicantsModalOpen(false)} 
+        opportunityId={opportunity.id} 
+      />
+
+      <ApplicationModal
+        isOpen={isApplicationModalOpen}
+        onClose={() => setIsApplicationModalOpen(false)}
+        opportunity={opportunity}
+        onSuccess={() => setApplied(true)}
+      />
     </div>
   );
 }

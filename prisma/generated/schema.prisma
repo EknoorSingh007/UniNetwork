@@ -155,6 +155,8 @@ model ReferralRequest {
   opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
   referrerId    Int
   referrer      User        @relation("Referrer", fields: [referrerId], references: [id], onDelete: Cascade)
+  resumeUrl     String?
+  resumeText    String?
   createdAt     DateTime    @default(now())
 }
 

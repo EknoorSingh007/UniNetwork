@@ -13,7 +13,7 @@ export async function POST(req: Request) {
 
     if (!currentUser) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
-    const { opportunityId } = await req.json();
+    const { opportunityId, resumeUrl, resumeText } = await req.json();
     if (!opportunityId) return NextResponse.json({ error: "Opportunity ID required" }, { status: 400 });
 
     const opportunity = await prisma.opportunity.findUnique({
@@ -21,6 +21,22 @@ export async function POST(req: Request) {
     });
 
     if (!opportunity) return NextResponse.json({ error: "Opportunity not found" }, { status: 404 });
+
+    // Check if the user is connected to the author or has sent a connection request
+    const isConnected = currentUser.connections.includes(opportunity.authorId);
+    
+    const connectionReq = await prisma.connectionRequest.findFirst({
+      where: {
+        OR: [
+          { senderId: currentUser.id, receiverId: opportunity.authorId },
+          { senderId: opportunity.authorId, receiverId: currentUser.id }
+        ]
+      }
+    });
+
+    if (!isConnected && !connectionReq) {
+      return NextResponse.json({ error: "You must connect with the author before applying" }, { status: 403 });
+    }
 
     // Check if already applied
     const existing = await prisma.referralRequest.findFirst({
@@ -40,6 +56,8 @@ export async function POST(req: Request) {
         requestorId: currentUser.id,
         referrerId: opportunity.authorId,
         status: "Pending",
+        resumeUrl,
+        resumeText,
       },
     });
 

@@ -13177,6 +13177,8 @@ export namespace Prisma {
     requestorId: number | null
     opportunityId: number | null
     referrerId: number | null
+    resumeUrl: string | null
+    resumeText: string | null
     createdAt: Date | null
   }
 
@@ -13186,6 +13188,8 @@ export namespace Prisma {
     requestorId: number | null
     opportunityId: number | null
     referrerId: number | null
+    resumeUrl: string | null
+    resumeText: string | null
     createdAt: Date | null
   }
 
@@ -13195,6 +13199,8 @@ export namespace Prisma {
     requestorId: number
     opportunityId: number
     referrerId: number
+    resumeUrl: number
+    resumeText: number
     createdAt: number
     _all: number
   }
@@ -13220,6 +13226,8 @@ export namespace Prisma {
     requestorId?: true
     opportunityId?: true
     referrerId?: true
+    resumeUrl?: true
+    resumeText?: true
     createdAt?: true
   }
 
@@ -13229,6 +13237,8 @@ export namespace Prisma {
     requestorId?: true
     opportunityId?: true
     referrerId?: true
+    resumeUrl?: true
+    resumeText?: true
     createdAt?: true
   }
 
@@ -13238,6 +13248,8 @@ export namespace Prisma {
     requestorId?: true
     opportunityId?: true
     referrerId?: true
+    resumeUrl?: true
+    resumeText?: true
     createdAt?: true
     _all?: true
   }
@@ -13334,6 +13346,8 @@ export namespace Prisma {
     requestorId: number
     opportunityId: number
     referrerId: number
+    resumeUrl: string | null
+    resumeText: string | null
     createdAt: Date
     _count: ReferralRequestCountAggregateOutputType | null
     _avg: ReferralRequestAvgAggregateOutputType | null
@@ -13362,6 +13376,8 @@ export namespace Prisma {
     requestorId?: boolean
     opportunityId?: boolean
     referrerId?: boolean
+    resumeUrl?: boolean
+    resumeText?: boolean
     createdAt?: boolean
     requestor?: boolean | UserDefaultArgs<ExtArgs>
     opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
@@ -13374,6 +13390,8 @@ export namespace Prisma {
     requestorId?: boolean
     opportunityId?: boolean
     referrerId?: boolean
+    resumeUrl?: boolean
+    resumeText?: boolean
     createdAt?: boolean
     requestor?: boolean | UserDefaultArgs<ExtArgs>
     opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
@@ -13386,6 +13404,8 @@ export namespace Prisma {
     requestorId?: boolean
     opportunityId?: boolean
     referrerId?: boolean
+    resumeUrl?: boolean
+    resumeText?: boolean
     createdAt?: boolean
     requestor?: boolean | UserDefaultArgs<ExtArgs>
     opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
@@ -13398,10 +13418,12 @@ export namespace Prisma {
     requestorId?: boolean
     opportunityId?: boolean
     referrerId?: boolean
+    resumeUrl?: boolean
+    resumeText?: boolean
     createdAt?: boolean
   }
 
-  export type ReferralRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "requestorId" | "opportunityId" | "referrerId" | "createdAt", ExtArgs["result"]["referralRequest"]>
+  export type ReferralRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "requestorId" | "opportunityId" | "referrerId" | "resumeUrl" | "resumeText" | "createdAt", ExtArgs["result"]["referralRequest"]>
   export type ReferralRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     requestor?: boolean | UserDefaultArgs<ExtArgs>
     opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
@@ -13431,6 +13453,8 @@ export namespace Prisma {
       requestorId: number
       opportunityId: number
       referrerId: number
+      resumeUrl: string | null
+      resumeText: string | null
       createdAt: Date
     }, ExtArgs["result"]["referralRequest"]>
     composites: {}
@@ -13863,6 +13887,8 @@ export namespace Prisma {
     readonly requestorId: FieldRef<"ReferralRequest", 'Int'>
     readonly opportunityId: FieldRef<"ReferralRequest", 'Int'>
     readonly referrerId: FieldRef<"ReferralRequest", 'Int'>
+    readonly resumeUrl: FieldRef<"ReferralRequest", 'String'>
+    readonly resumeText: FieldRef<"ReferralRequest", 'String'>
     readonly createdAt: FieldRef<"ReferralRequest", 'DateTime'>
   }
     
@@ -18903,6 +18929,8 @@ export namespace Prisma {
     requestorId: 'requestorId',
     opportunityId: 'opportunityId',
     referrerId: 'referrerId',
+    resumeUrl: 'resumeUrl',
+    resumeText: 'resumeText',
     createdAt: 'createdAt'
   };
 
@@ -19759,6 +19787,8 @@ export namespace Prisma {
     requestorId?: IntFilter<"ReferralRequest"> | number
     opportunityId?: IntFilter<"ReferralRequest"> | number
     referrerId?: IntFilter<"ReferralRequest"> | number
+    resumeUrl?: StringNullableFilter<"ReferralRequest"> | string | null
+    resumeText?: StringNullableFilter<"ReferralRequest"> | string | null
     createdAt?: DateTimeFilter<"ReferralRequest"> | Date | string
     requestor?: XOR<UserScalarRelationFilter, UserWhereInput>
     opportunity?: XOR<OpportunityScalarRelationFilter, OpportunityWhereInput>
@@ -19771,6 +19801,8 @@ export namespace Prisma {
     requestorId?: SortOrder
     opportunityId?: SortOrder
     referrerId?: SortOrder
+    resumeUrl?: SortOrderInput | SortOrder
+    resumeText?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     requestor?: UserOrderByWithRelationInput
     opportunity?: OpportunityOrderByWithRelationInput
@@ -19786,6 +19818,8 @@ export namespace Prisma {
     requestorId?: IntFilter<"ReferralRequest"> | number
     opportunityId?: IntFilter<"ReferralRequest"> | number
     referrerId?: IntFilter<"ReferralRequest"> | number
+    resumeUrl?: StringNullableFilter<"ReferralRequest"> | string | null
+    resumeText?: StringNullableFilter<"ReferralRequest"> | string | null
     createdAt?: DateTimeFilter<"ReferralRequest"> | Date | string
     requestor?: XOR<UserScalarRelationFilter, UserWhereInput>
     opportunity?: XOR<OpportunityScalarRelationFilter, OpportunityWhereInput>
@@ -19798,6 +19832,8 @@ export namespace Prisma {
     requestorId?: SortOrder
     opportunityId?: SortOrder
     referrerId?: SortOrder
+    resumeUrl?: SortOrderInput | SortOrder
+    resumeText?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: ReferralRequestCountOrderByAggregateInput
     _avg?: ReferralRequestAvgOrderByAggregateInput
@@ -19815,6 +19851,8 @@ export namespace Prisma {
     requestorId?: IntWithAggregatesFilter<"ReferralRequest"> | number
     opportunityId?: IntWithAggregatesFilter<"ReferralRequest"> | number
     referrerId?: IntWithAggregatesFilter<"ReferralRequest"> | number
+    resumeUrl?: StringNullableWithAggregatesFilter<"ReferralRequest"> | string | null
+    resumeText?: StringNullableWithAggregatesFilter<"ReferralRequest"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"ReferralRequest"> | Date | string
   }
 
@@ -20753,6 +20791,8 @@ export namespace Prisma {
 
   export type ReferralRequestCreateInput = {
     status?: string
+    resumeUrl?: string | null
+    resumeText?: string | null
     createdAt?: Date | string
     requestor: UserCreateNestedOneWithoutReferralsReqInput
     opportunity: OpportunityCreateNestedOneWithoutRequestsInput
@@ -20765,11 +20805,15 @@ export namespace Prisma {
     requestorId: number
     opportunityId: number
     referrerId: number
+    resumeUrl?: string | null
+    resumeText?: string | null
     createdAt?: Date | string
   }
 
   export type ReferralRequestUpdateInput = {
     status?: StringFieldUpdateOperationsInput | string
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     requestor?: UserUpdateOneRequiredWithoutReferralsReqNestedInput
     opportunity?: OpportunityUpdateOneRequiredWithoutRequestsNestedInput
@@ -20782,6 +20826,8 @@ export namespace Prisma {
     requestorId?: IntFieldUpdateOperationsInput | number
     opportunityId?: IntFieldUpdateOperationsInput | number
     referrerId?: IntFieldUpdateOperationsInput | number
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20791,11 +20837,15 @@ export namespace Prisma {
     requestorId: number
     opportunityId: number
     referrerId: number
+    resumeUrl?: string | null
+    resumeText?: string | null
     createdAt?: Date | string
   }
 
   export type ReferralRequestUpdateManyMutationInput = {
     status?: StringFieldUpdateOperationsInput | string
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20805,6 +20855,8 @@ export namespace Prisma {
     requestorId?: IntFieldUpdateOperationsInput | number
     opportunityId?: IntFieldUpdateOperationsInput | number
     referrerId?: IntFieldUpdateOperationsInput | number
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21803,6 +21855,8 @@ export namespace Prisma {
     requestorId?: SortOrder
     opportunityId?: SortOrder
     referrerId?: SortOrder
+    resumeUrl?: SortOrder
+    resumeText?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -21819,6 +21873,8 @@ export namespace Prisma {
     requestorId?: SortOrder
     opportunityId?: SortOrder
     referrerId?: SortOrder
+    resumeUrl?: SortOrder
+    resumeText?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -21828,6 +21884,8 @@ export namespace Prisma {
     requestorId?: SortOrder
     opportunityId?: SortOrder
     referrerId?: SortOrder
+    resumeUrl?: SortOrder
+    resumeText?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -24110,6 +24168,8 @@ export namespace Prisma {
 
   export type ReferralRequestCreateWithoutReferrerInput = {
     status?: string
+    resumeUrl?: string | null
+    resumeText?: string | null
     createdAt?: Date | string
     requestor: UserCreateNestedOneWithoutReferralsReqInput
     opportunity: OpportunityCreateNestedOneWithoutRequestsInput
@@ -24120,6 +24180,8 @@ export namespace Prisma {
     status?: string
     requestorId: number
     opportunityId: number
+    resumeUrl?: string | null
+    resumeText?: string | null
     createdAt?: Date | string
   }
 
@@ -24135,6 +24197,8 @@ export namespace Prisma {
 
   export type ReferralRequestCreateWithoutRequestorInput = {
     status?: string
+    resumeUrl?: string | null
+    resumeText?: string | null
     createdAt?: Date | string
     opportunity: OpportunityCreateNestedOneWithoutRequestsInput
     referrer: UserCreateNestedOneWithoutReferralsMadeInput
@@ -24145,6 +24209,8 @@ export namespace Prisma {
     status?: string
     opportunityId: number
     referrerId: number
+    resumeUrl?: string | null
+    resumeText?: string | null
     createdAt?: Date | string
   }
 
@@ -24407,6 +24473,8 @@ export namespace Prisma {
     requestorId?: IntFilter<"ReferralRequest"> | number
     opportunityId?: IntFilter<"ReferralRequest"> | number
     referrerId?: IntFilter<"ReferralRequest"> | number
+    resumeUrl?: StringNullableFilter<"ReferralRequest"> | string | null
+    resumeText?: StringNullableFilter<"ReferralRequest"> | string | null
     createdAt?: DateTimeFilter<"ReferralRequest"> | Date | string
   }
 
@@ -25640,6 +25708,8 @@ export namespace Prisma {
 
   export type ReferralRequestCreateWithoutOpportunityInput = {
     status?: string
+    resumeUrl?: string | null
+    resumeText?: string | null
     createdAt?: Date | string
     requestor: UserCreateNestedOneWithoutReferralsReqInput
     referrer: UserCreateNestedOneWithoutReferralsMadeInput
@@ -25650,6 +25720,8 @@ export namespace Prisma {
     status?: string
     requestorId: number
     referrerId: number
+    resumeUrl?: string | null
+    resumeText?: string | null
     createdAt?: Date | string
   }
 
@@ -27123,6 +27195,8 @@ export namespace Prisma {
     status?: string
     requestorId: number
     opportunityId: number
+    resumeUrl?: string | null
+    resumeText?: string | null
     createdAt?: Date | string
   }
 
@@ -27131,6 +27205,8 @@ export namespace Prisma {
     status?: string
     opportunityId: number
     referrerId: number
+    resumeUrl?: string | null
+    resumeText?: string | null
     createdAt?: Date | string
   }
 
@@ -27261,6 +27337,8 @@ export namespace Prisma {
 
   export type ReferralRequestUpdateWithoutReferrerInput = {
     status?: StringFieldUpdateOperationsInput | string
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     requestor?: UserUpdateOneRequiredWithoutReferralsReqNestedInput
     opportunity?: OpportunityUpdateOneRequiredWithoutRequestsNestedInput
@@ -27271,6 +27349,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     requestorId?: IntFieldUpdateOperationsInput | number
     opportunityId?: IntFieldUpdateOperationsInput | number
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27279,11 +27359,15 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     requestorId?: IntFieldUpdateOperationsInput | number
     opportunityId?: IntFieldUpdateOperationsInput | number
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReferralRequestUpdateWithoutRequestorInput = {
     status?: StringFieldUpdateOperationsInput | string
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     opportunity?: OpportunityUpdateOneRequiredWithoutRequestsNestedInput
     referrer?: UserUpdateOneRequiredWithoutReferralsMadeNestedInput
@@ -27294,6 +27378,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     opportunityId?: IntFieldUpdateOperationsInput | number
     referrerId?: IntFieldUpdateOperationsInput | number
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27302,6 +27388,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     opportunityId?: IntFieldUpdateOperationsInput | number
     referrerId?: IntFieldUpdateOperationsInput | number
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27532,11 +27620,15 @@ export namespace Prisma {
     status?: string
     requestorId: number
     referrerId: number
+    resumeUrl?: string | null
+    resumeText?: string | null
     createdAt?: Date | string
   }
 
   export type ReferralRequestUpdateWithoutOpportunityInput = {
     status?: StringFieldUpdateOperationsInput | string
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     requestor?: UserUpdateOneRequiredWithoutReferralsReqNestedInput
     referrer?: UserUpdateOneRequiredWithoutReferralsMadeNestedInput
@@ -27547,6 +27639,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     requestorId?: IntFieldUpdateOperationsInput | number
     referrerId?: IntFieldUpdateOperationsInput | number
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27555,6 +27649,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     requestorId?: IntFieldUpdateOperationsInput | number
     referrerId?: IntFieldUpdateOperationsInput | number
+    resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resumeText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

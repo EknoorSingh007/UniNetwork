@@ -18,6 +18,7 @@ export async function GET() {
       where: { universityId: user.universityId },
       include: {
         author: true,
+        _count: { select: { requests: true } },
       },
       orderBy: { createdAt: "desc" },
     });
